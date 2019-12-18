@@ -1,0 +1,14 @@
+{
+  "name": "web3_examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lachesis.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}
