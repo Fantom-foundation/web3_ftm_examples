@@ -8,6 +8,7 @@ const privateKey = Buffer.from(
 )
 const address = "<address>"
 const value = "<amount-to-delegate>"
+const validator = 1 // ID of the validator you want to delegate to
 
 
 web3 = new Web3(new Web3.providers.HttpProvider('http://34.253.43.155:3001/'));
@@ -23,7 +24,7 @@ async function delegate() {
         from: address,
         to: "0xfc00face00000000000000000000000000000000",
         value: value,
-        data:  sfc.methods.createDelegation(1).encodeABI(),
+        data:  sfc.methods.createDelegation(validator).encodeABI(),
         privateKey,
   })
 }
