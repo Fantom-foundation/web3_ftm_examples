@@ -6,9 +6,9 @@ const privateKey = Buffer.from(
   '<private-key>',
   'hex',
 )
-const address = "<address>"
-const value = "<amount-to-delegate>"
-const validator = 1 // ID of the validator you want to delegate to
+const address = "<from-address>"
+const value = "1"
+const validator = "1" // ID of the validator you want to delegate to
 
 
 web3 = new Web3(new Web3.providers.HttpProvider('http://34.253.43.155:3001/'));
@@ -29,7 +29,7 @@ async function delegate() {
   })
 }
 
-async function transfer({ from, to, value, memo, privateKey }) {
+async function transfer({ from, to, value, data, privateKey }) {
   const nonce = await web3.eth.getTransactionCount(from);
   const gasPrice = await web3.eth.getGasPrice();
   console.log(gasPrice)
@@ -42,19 +42,18 @@ async function transfer({ from, to, value, memo, privateKey }) {
     from,
     to,
     value: Web3.utils.toHex(Web3.utils.toWei(value, 'ether')),
-    gasLimit: Web3.utils.toHex(21000),
+    gasLimit: Web3.utils.toHex(200000),
     gasPrice: Web3.utils.toHex(gasPrice),
     nonce: Web3.utils.toHex(nonce),
-    data: memo,
+    data: data,
   };
 
   const privateKeyBuffer = EthUtil.toBuffer(privateKey);
 
   const tx = new Tx(rawTx);
+  console.log(tx.toJSON())
   tx.sign(privateKeyBuffer);
   const serializedTx = tx.serialize();
-
-  console.log(tx.getSenderAddress().toString('hex'))
 
   const res = await this.web3.eth.sendSignedTransaction(`0x${serializedTx.toString('hex')}`);
   console.log(res)
